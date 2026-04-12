@@ -132,22 +132,23 @@ body { font-family: 'Heebo', sans-serif; background: var(--bg); color: var(--tex
 .intro-strip strong { color: var(--accent); }
 
 /* ══ TOOL GRID ══ */
-.tools-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.tools-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .tool-btn {
   background: var(--surface);
   border: 2px solid var(--border);
-  border-radius: 18px; padding: 16px 10px 13px;
+  border-radius: 14px; padding: 11px 13px;
   cursor: pointer; transition: all 0.18s;
-  text-align: center;
-  display: flex; flex-direction: column; align-items: center; gap: 7px;
+  text-align: right; direction: rtl;
+  display: flex; flex-direction: row; align-items: center; gap: 10px;
+  width: 100%;
 }
 .tool-btn:hover, .tool-btn.active {
   border-color: var(--accent);
   background: var(--surface2);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(56,189,248,0.15);
+  box-shadow: 0 4px 16px rgba(56,189,248,0.15);
 }
-.tool-icon   { font-size: 2rem; line-height: 1; }
+.tool-icon   { font-size: 1.4rem; line-height: 1; flex-shrink: 0; order: 2; margin-right: auto; }
+.tool-texts  { display: flex; flex-direction: column; align-items: flex-start; order: 1; }
 .tool-name   { font-size: 13px; font-weight: 700; color: var(--text); }
 .tool-tagline { font-size: 11px; color: var(--muted); line-height: 1.3; }
 
@@ -410,6 +411,45 @@ body { font-family: 'Heebo', sans-serif; background: var(--bg); color: var(--tex
 }
 .modal-cancel:hover { border-color: var(--accent); color: var(--accent); }
 
+/* ══ SEARCH BOX ══ */
+.search-wrap {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 16px;
+  display: flex; align-items: center; gap: 10px;
+  padding: 4px 14px 4px 8px;
+  margin-bottom: 12px;
+  transition: border-color 0.2s;
+}
+.search-wrap:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(56,189,248,0.1); }
+.search-wrap input {
+  flex: 1; background: none; border: none; outline: none;
+  font-size: 15px; font-family: 'Heebo', sans-serif;
+  color: var(--text); padding: 11px 0; direction: rtl; min-width: 0;
+}
+.search-wrap input::placeholder { color: var(--muted); }
+.search-clear {
+  background: none; border: none; color: var(--muted);
+  font-size: 18px; cursor: pointer; padding: 4px; line-height: 1;
+  display: none;
+}
+.search-clear.visible { display: block; }
+.search-icon { font-size: 18px; flex-shrink: 0; }
+.search-hint { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.hint-chip {
+  background: rgba(56,189,248,0.08); border: 1px solid rgba(56,189,248,0.2);
+  border-radius: 20px; padding: 5px 12px;
+  font-family: 'Heebo',sans-serif; font-size: 12px; font-weight: 700;
+  color: var(--accent); cursor: pointer; transition: all 0.15s;
+}
+.hint-chip:hover { background: rgba(56,189,248,0.18); }
+.no-results { text-align: center; padding: 28px 0; color: var(--muted); font-size: 14px; display: none; }
+.no-results.visible { display: block; }
+.search-prompt {
+  text-align: center; padding: 28px 0;
+  color: var(--muted); font-size: 14px;
+}
+
 .hidden { display: none !important; }
 </style>
 </head>
@@ -464,11 +504,27 @@ body { font-family: 'Heebo', sans-serif; background: var(--bg); color: var(--tex
 
     <!-- ══ TOOLS SECTION ══ -->
     <div id="toolsSection" class="section active">
-      <div class="intro-strip">
-        גוגל מציעה <strong>כלים חינמיים</strong> שיכולים לעזור לכם מאוד בחיי היום-יום.<br>
-        לחצו על כל כלי – לראות הסבר, מדריך ושאלות נפוצות.
+
+      <!-- חיפוש -->
+      <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="toolSearch" placeholder="חפשו כלי או שאלה... (למשל: איך שולחים מייל)"
+               oninput="onToolSearch(this.value)" autocomplete="off">
+        <button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
       </div>
-      <div class="tools-grid" id="toolsGrid"></div>
+
+      <!-- רמזים מהירים -->
+      <div class="search-hint">
+        <button class="hint-chip" onclick="runHint('איך')">🙋 איך...</button>
+        <button class="hint-chip" onclick="runHint('Gmail')">✉️ Gmail</button>
+        <button class="hint-chip" onclick="runHint('Maps')">🗺️ Maps</button>
+        <button class="hint-chip" onclick="runHint('YouTube')">▶️ YouTube</button>
+        <button class="hint-chip" onclick="runHint('תמונות')">📷 תמונות</button>
+      </div>
+
+      <div class="search-prompt" id="searchPrompt">⬆️ הקלידו שם כלי או שאלה כדי להתחיל</div>
+      <div class="tools-grid" id="toolsGrid" style="display:none"></div>
+      <div class="no-results" id="noResults">🔍 לא נמצאו תוצאות – נסו מילה אחרת</div>
       <div id="detailPanel" class="detail-panel"></div>
     </div>
 
@@ -680,6 +736,89 @@ const aiSuggestions = [
   "מה עושים כשהטלפון תקוע?"
 ];
 
+/* ══ SEARCH ══ */
+function onToolSearch(val) {
+  document.getElementById('searchClear').classList.toggle('visible', val.length > 0);
+
+  // סגור פאנל פתוח
+  if (activeTool) {
+    document.getElementById('detailPanel').classList.remove('open');
+    document.getElementById('detailPanel').innerHTML = '';
+    const pb = document.getElementById('btn-' + activeTool);
+    if (pb) pb.classList.remove('active');
+    activeTool = null;
+  }
+
+  const q = val.trim().toLowerCase();
+  const grid   = document.getElementById('toolsGrid');
+  const prompt = document.getElementById('searchPrompt');
+  const noRes  = document.getElementById('noResults');
+
+  if (!q) {
+    grid.style.display = 'none';
+    grid.innerHTML = '';
+    prompt.style.display = 'block';
+    noRes.classList.remove('visible');
+    return;
+  }
+
+  prompt.style.display = 'none';
+
+  const matched = tools.filter(t => {
+    const haystack = (t.name + ' ' + t.tagline + ' ' + t.faqs.map(f=>f.q).join(' ')).toLowerCase();
+    return haystack.includes(q);
+  });
+
+  if (matched.length === 0) {
+    grid.style.display = 'none';
+    grid.innerHTML = '';
+    noRes.classList.add('visible');
+    return;
+  }
+
+  noRes.classList.remove('visible');
+  grid.style.display = 'grid';
+  renderFilteredTools(matched);
+
+  // אם חיפשו "איך" ויש כלי אחד – פתח שאלות נפוצות אוטומטית
+  if (q.includes('איך') && matched.length === 1) {
+    setTimeout(() => { toggleTool(matched[0].id, 'faq'); }, 100);
+  }
+}
+
+function renderFilteredTools(list) {
+  const grid = document.getElementById('toolsGrid');
+  const noRes = document.getElementById('noResults');
+  if (list.length === 0) {
+    grid.innerHTML = '';
+    noRes.classList.add('visible');
+    return;
+  }
+  noRes.classList.remove('visible');
+  grid.innerHTML = list.map(t => `
+    <button class="tool-btn" id="btn-${t.id}" onclick="toggleTool('${t.id}')">
+      <div class="tool-texts">
+        <div class="tool-name">${t.name}</div>
+        <div class="tool-tagline">${t.tagline}</div>
+      </div>
+      <div class="tool-icon">${t.icon}</div>
+    </button>
+  `).join('');
+}
+
+function runHint(val) {
+  const input = document.getElementById('toolSearch');
+  input.value = val;
+  onToolSearch(val);
+  input.focus();
+}
+
+function clearSearch() {
+  const input = document.getElementById('toolSearch');
+  input.value = '';
+  onToolSearch('');
+  input.focus();
+}
 /* ══ TABS ══ */
 function switchTab(section, btn) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
@@ -695,29 +834,32 @@ const activeInnerTab = {};
 function renderTools() {
   document.getElementById('toolsGrid').innerHTML = tools.map(t => `
     <button class="tool-btn" id="btn-${t.id}" onclick="toggleTool('${t.id}')">
+      <div class="tool-texts">
+        <div class="tool-name">${t.name}</div>
+        <div class="tool-tagline">${t.tagline}</div>
+      </div>
       <div class="tool-icon">${t.icon}</div>
-      <div class="tool-name">${t.name}</div>
-      <div class="tool-tagline">${t.tagline}</div>
     </button>
   `).join('');
 }
 
-function toggleTool(id) {
+function toggleTool(id, forceTab) {
   const panel   = document.getElementById('detailPanel');
   const grid    = document.getElementById('toolsGrid');
   const prevBtn = activeTool ? document.getElementById('btn-' + activeTool) : null;
 
-  if (activeTool === id) {
+  if (activeTool === id && !forceTab) {
     panel.classList.remove('open'); panel.innerHTML = '';
     if (prevBtn) prevBtn.classList.remove('active');
     activeTool = null; return;
   }
   if (prevBtn) prevBtn.classList.remove('active');
   activeTool = id;
-  document.getElementById('btn-' + id).classList.add('active');
+  const btn = document.getElementById('btn-' + id);
+  if (btn) btn.classList.add('active');
 
   const t   = tools.find(x => x.id === id);
-  const tab = activeInnerTab[id] || 'steps';
+  const tab = forceTab || activeInnerTab[id] || 'steps';
 
   const stepsHtml = t.steps.map((s,i) => `
     <li><span class="step-num">${i+1}</span><span>${s}</span></li>`).join('');
@@ -834,7 +976,6 @@ function askAI() {
     });
 }
 
-renderTools();
 renderSuggestions();
 </script>
 </body>
