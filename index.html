@@ -856,9 +856,17 @@ function copySteps(id){
   if(dev==='android'&&t.stepsAndroid) steps=t.stepsAndroid;
   if(dev==='iphone' &&t.stepsIphone)  steps=t.stepsIphone;
   if(dev==='pc'     &&t.stepsPC)      steps=t.stepsPC;
-  var text=t.name+' - מדריך גימלאטק\n\n';
+  var devLabel = dev==='android'?'Android': dev==='iphone'?'iPhone':'מחשב';
+  var text=t.name+' ('+devLabel+')\n';
+  text+='─────────────────\n';
   steps.forEach(function(s,i){ text+=(i+1)+'. '+s+'\n'; });
-  text+='\n'+t.tip+'\n\nגימלאטק לעזרה: 050-3960685';
+  text+='\n💡 '+t.tip+'\n';
+  if(t.install){
+    text+='\n⬇️ הורדה:\n';
+    if(t.install.android) text+='Android: '+t.install.android+'\n';
+    if(t.install.iphone)  text+='iPhone: '+t.install.iphone+'\n';
+    if(t.install.pc)      text+='מחשב: '+t.install.pc+'\n';
+  }
   navigator.clipboard.writeText(text).then(function(){
     var btn=document.getElementById('copy-btn-'+id);
     if(btn){ btn.textContent='✓ הועתק!'; setTimeout(function(){ btn.textContent='📋 העתק מדריך'; },2000); }
