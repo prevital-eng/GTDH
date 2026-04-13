@@ -130,6 +130,13 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);min-h
 .open-btn-zoom{background:#2d8cff;}
 .open-btn-fb{background:#1877f2;}
 
+/* DEVICE SELECTOR */
+.device-sel{display:flex;gap:8px;margin:12px 14px 0;}
+.dev-btn{flex:1;padding:10px 8px;border-radius:12px;border:2px solid var(--border);background:var(--surface);font-family:'Heebo',sans-serif;font-size:13px;font-weight:700;color:var(--muted);cursor:pointer;transition:all 0.15s;-webkit-tap-highlight-color:transparent;}
+.dev-btn.active{border-color:var(--accent);background:var(--surface2);color:var(--accent);}
+.dev-btn.pc-btn{font-size:12px;}
+.dev-intro{font-size:12px;color:var(--muted);text-align:center;padding:8px 14px 0;}
+
 /* LOADING */
 .ai-loading{display:flex;gap:6px;align-items:center;padding:4px 0;}
 .ai-loading span{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:bounce 1.2s infinite;}
@@ -275,14 +282,36 @@ var tools = [
   { id:'whatsapp', cat:'comm', icon:'💬', name:'WhatsApp', tagline:'הודעות ושיחות', url:'https://web.whatsapp.com', openBtnClass:'open-btn-wa',
     what:'WhatsApp היא אפליקציית המסרים הנפוצה ביותר בישראל. שולחים הודעות, תמונות, קבצים ועורכים שיחות קול ווידאו – בחינם לחלוטין.',
     steps:[
-      'מצאו את האייקון הירוק של WhatsApp 💬 על מסך הטלפון ולחצו עליו',
-      'תראו רשימת שיחות. למציאת איש קשר: לחצו על סמל ✏️ (עיפרון) בפינה הימנית למעלה',
-      'תיפתח רשימת אנשי הקשר – גללו או הקלידו שם בשורת החיפוש למעלה',
-      'לחצו על שם האיש קשר – תיפתח שיחה. כתבו הודעה בתיבה הלבנה למטה',
-      'לחצו על החץ הכחול ← לשליחה. ✓✓ אחרי ההודעה = נקראה'
+      'מצאו את האייקון הירוק של WhatsApp 💬 ולחצו עליו',
+      'תראו רשימת שיחות. לחצו על ✏️ בפינה הימנית למעלה',
+      'גללו או הקלידו שם בשורת החיפוש',
+      'לחצו על שם האיש קשר ← כתבו הודעה בתיבה הלבנה למטה',
+      'לחצו על החץ הכחול ← לשליחה. ✓✓ = נקראה'
+    ],
+    stepsAndroid:[
+      'מצאו את האייקון הירוק של WhatsApp 💬 ולחצו עליו',
+      'לחצו על ✏️ (עיפרון) בפינה הימנית למעלה',
+      'גללו ברשימת אנשי הקשר או הקלידו שם בחיפוש',
+      'לחצו על שם האיש קשר ← כתבו הודעה בתיבה למטה',
+      'לחצו על החץ הכחול ◀ לשליחה'
+    ],
+    stepsIphone:[
+      'מצאו את האייקון הירוק של WhatsApp 💬 ולחצו עליו',
+      'לחצו על הכפתור "חדש" ✏️ בפינה הימנית למעלה',
+      'גללו ברשימה או הקלידו שם בשורת החיפוש',
+      'לחצו על שם האיש קשר ← כתבו הודעה בתיבה למטה',
+      'לחצו על החץ הכחול ▶ לשליחה'
+    ],
+    stepsPC:[
+      'פתחו דפדפן Chrome ← הקלידו web.whatsapp.com ← לחצו Enter',
+      'יופיע קוד QR (תמונה מרובעת עם נקודות) על המסך',
+      'פתחו WhatsApp בטלפון ← לחצו ⋮ (Android) או הגדרות (iPhone)',
+      'בחרו "מכשירים מקושרים" ← "קשרו מכשיר" ← כוונו מצלמת הטלפון לקוד',
+      'הקוד נסרק ← WhatsApp Web נפתח! עכשיו תוכלו לכתוב מהמחשב'
     ],
     tip:'הודעה קולית: החזיקו לחוץ על 🎤 בצד שמאל של תיבת ההקלדה ← דברו ← שחררו לשליחה.',
     faqs:[
+      {q:'איך מגיעים להגדרות WhatsApp?',a:'Android: פתחו WhatsApp ← לחצו על שלוש הנקודות ⋮ בפינה הימנית למעלה ← בחרו "הגדרות". iPhone: פתחו WhatsApp ← לחצו על "הגדרות" ⚙️ בתפריט התחתון (הכפתור הכי שמאלי).'},
       {q:'איך מתקשרים שיחת קול בWhatsApp?',a:'פתחו את השיחה עם האיש קשר ← לחצו על הסמל 📞 בפינה הימנית למעלה ← השיחה מתחילה. לניתוק: לחצו על הטלפון האדום 🔴.'},
       {q:'איך יוצרים שיחת וידאו?',a:'פתחו שיחה עם האיש קשר ← לחצו על הסמל 📹 בפינה הימנית למעלה ← הם יקבלו שיחה נכנסת. לניתוק: לחצו הטלפון האדום.'},
       {q:'איך יוצרים קבוצת משפחה?',a:'לחצו ✏️ למעלה ← "קבוצה חדשה" ← סמנו את בני המשפחה מהרשימה (✓ ליד כל אחד) ← לחצו החץ ← כתבו שם לקבוצה (למשל "משפחת לוי") ← לחצו ✓.'},
@@ -318,6 +347,27 @@ var tools = [
       'אם מבקש סיסמה: הכניסו את הסיסמה שנשלחה לכם יחד עם הקישור',
       'אתם בפגישה! לניתוק: לחצו כפתור אדום "עזבו" (Leave) בפינה השמאלית למטה'
     ],
+    stepsAndroid:[
+      'קיבלתם קישור? לחצו עליו ← Zoom יפתח אוטומטית',
+      'אם מבקש להוריד: חנות Play ← חפשו Zoom ← התקינו',
+      'הכניסו שמכם ← לחצו "הצטרפו עם וידאו"',
+      'הכניסו סיסמה אם נדרש',
+      'לניתוק: לחצו על הכפתור האדום "עזבו" למטה'
+    ],
+    stepsIphone:[
+      'קיבלתם קישור? לחצו עליו ← Zoom יפתח אוטומטית',
+      'אם מבקש להוריד: App Store ← חפשו Zoom ← התקינו',
+      'הכניסו שמכם ← לחצו "הצטרפו עם וידאו"',
+      'הכניסו סיסמה אם נדרש',
+      'לניתוק: לחצו על הכפתור האדום "עזבו" בתחתית'
+    ],
+    stepsPC:[
+      'קיבלתם קישור Zoom? לחצו עליו ← יפתח דפדפן',
+      'לחצו "פתחו Zoom" ← אם אין Zoom: zoom.us/download ← "הורידו"',
+      'יופיע חלון: הכניסו שמכם ← לחצו "הצטרפו עם וידאו"',
+      'הכניסו סיסמה אם נדרש ← אתם בפגישה!',
+      'לניתוק: לחצו "עזבו" (Leave) בפינה השמאלית למטה'
+    ],
     tip:'לא מצלמים? לחצו "הצטרפו ללא וידאו". אפשר להפעיל מצלמה אחר כך בלחיצה על 📹 למטה.',
     faqs:[
       {q:'לא שומעים אותי – מה עושים?',a:'הסתכלו על הסרגל השחור בתחתית המסך ← מצאו את הסמל 🎤 (מיקרופון) ← אם יש עליו קו אדום – אתם מושתקים. לחצו עליו להפעלה. ← תראו שהסמל נהיה רגיל.'},
@@ -348,11 +398,32 @@ var tools = [
   { id:'anydesk', cat:'remote', icon:'🖥️', name:'AnyDesk', tagline:'עזרה מרחוק', url:'https://anydesk.com',
     what:'AnyDesk מאפשר למתנדב גימלאטק לראות ולשלוט במחשב שלכם מרחוק – כדי לעזור. אתם שולטים ויכולים לנתק בכל עת.',
     steps:[
-      'פתחו דפדפן Chrome ← עברו ל-anydesk.com ← לחצו על הכפתור הכחול "Free Download"',
-      'יורד קובץ – לחצו עליו למטה בדפדפן ← לחצו "כן" אם שואל האם להפעיל',
+      'פתחו דפדפן ← עברו ל-anydesk.com ← לחצו "Free Download"',
+      'פתחו את הקובץ שהורד ← לחצו "כן"',
+      'AnyDesk יפתח ← תראו מספר בן 9 ספרות',
+      'מסרו את המספר למתנדב גימלאטק בלבד',
+      'לחצו "אשרו" כשמופיעה בקשת חיבור'
+    ],
+    stepsPC:[
+      'פתחו Chrome ← עברו ל-anydesk.com ← לחצו "Free Download" (כפתור כחול)',
+      'יורד קובץ – לחצו עליו בתחתית הדפדפן ← לחצו "כן" אם שואל',
       'AnyDesk יפתח ← תראו מספר בן 9 ספרות גדול (למשל: 123 456 789)',
       'מסרו את המספר הזה בלבד למתנדב גימלאטק שעוזר לכם',
-      'כשהמתנדב מתחבר: תופיע הודעה ← לחצו "אשרו" (Accept) ← הם יוכלו לראות ולעזור. לניתוק: לחצו X בחלון AnyDesk'
+      'כשהמתנדב מתחבר: תופיע הודעה ← לחצו "אשרו" (Accept) ← לניתוק: X בחלון'
+    ],
+    stepsAndroid:[
+      'פתחו חנות Play Store ← חפשו "AnyDesk" ← לחצו "התקינו"',
+      'פתחו AnyDesk ← תראו מספר בן 9 ספרות על המסך',
+      'מסרו את המספר למתנדב גימלאטק בלבד',
+      'כשמופיעה בקשה: לחצו "אשרו" ← המתנדב יראה את מסך הטלפון',
+      'לניתוק: לחצו על X בראש המסך'
+    ],
+    stepsIphone:[
+      'פתחו App Store ← חפשו "AnyDesk" ← לחצו "קבלו"',
+      'פתחו AnyDesk ← תראו מספר בן 9 ספרות על המסך',
+      'מסרו את המספר למתנדב גימלאטק בלבד',
+      'כשמופיעה בקשה: לחצו "אשרו" ← המתנדב יראה את מסך הטלפון',
+      'לניתוק: לחצו על X בראש המסך'
     ],
     tip:'⚠️ בטיחות: מסרו מספר AnyDesk רק למי שאתם מכירים ובטחתם בו. לעולם לא לאנשים שהתקשרו אליכם בטלפון!',
     faqs:[
@@ -407,7 +478,29 @@ var tools = [
       'לחיפוש חבר: לחצו 🔍 בראש העמוד ← הקלידו שמו ← לחצו על שמו ← "הוסיפו חבר"',
       'לכתיבת פוסט: לחצו על "מה אתם חושבים?" ← כתבו ← לחצו "פרסמו"'
     ],
-    tip:'רוצים לראות רק פוסטים של משפחה? לחצו על "חברים" בסרגל שמאל ← "רשימות" ← "משפחה קרובה".',
+
+    stepsPC:[
+      'פתחו Chrome ← הקלידו facebook.com ← לחצו Enter',
+      'הכניסו כתובת אימייל וסיסמה ← לחצו "התחברו" (Log In)',
+      'בניוזפיד: גללו למטה לקריאת פוסטים מחבריכם',
+      'לחיפוש חבר: לחצו 🔍 בראש העמוד ← הקלידו שמו',
+      'לכתיבת פוסט: לחצו "מה אתם חושבים?" ← כתבו ← "פרסמו"'
+    ],
+    stepsAndroid:[
+      'מצאו את האייקון הכחול של Facebook 👥 ← לחצו עליו',
+      'הכניסו אימייל וסיסמה ← לחצו "התחברו"',
+      'גללו בניוזפיד ← לחצו 🔍 למעלה לחיפוש חברים',
+      'לכתיבת פוסט: לחצו "מה אתם חושבים?" בראש הדף',
+      'כתבו ← לחצו "פרסמו" (כפתור כחול)'
+    ],
+    stepsIphone:[
+      'מצאו את האייקון הכחול של Facebook 👥 ← לחצו עליו',
+      'הכניסו אימייל וסיסמה ← לחצו "התחברו"',
+      'גללו בניוזפיד ← לחצו 🔍 בתפריט התחתון לחיפוש',
+      'לכתיבת פוסט: לחצו "מה אתם חושבים?" בראש הדף',
+      'כתבו ← לחצו "פרסמו" (כפתור כחול)'
+    ],
+        tip:'רוצים לראות רק פוסטים של משפחה? לחצו על "חברים" בסרגל שמאל ← "רשימות" ← "משפחה קרובה".',
     faqs:[
       {q:'שכחתי סיסמה – מה עושים?',a:'בדף ההתחברות ← לחצו "שכחתם סיסמה?" ← הכניסו כתובת אימייל ← לחצו "חפשו" ← קבלו קוד למייל ← הכניסו קוד ← הגדירו סיסמה חדשה.'},
       {q:'איך מצטרפים לקבוצה?',a:'לחצו 🔍 ← הקלידו שם הקבוצה ← לחצו על שמה ← לחצו "הצטרפו לקבוצה". אם פרטית – מנהל יאשר תוך שעות-ימים.'},
@@ -654,6 +747,8 @@ function clearSearch(){
 }
 
 /* ══ TOOL DETAIL ══ */
+var activeDevice = {};
+
 function toggleTool(id){
   var panel=document.getElementById('detailPanel');
   document.querySelectorAll('.chip').forEach(function(c){c.classList.remove('active');});
@@ -661,33 +756,67 @@ function toggleTool(id){
   activeTool=id;
   var chipEl=document.getElementById('chip-'+id);
   if(chipEl) chipEl.classList.add('active');
-
-  var t=tools.filter(function(x){return x.id===id;})[0];
-  var tab=activeInnerTab[id]||'steps';
-
-  var sh=t.steps.map(function(s,i){return '<li><span class="step-num">'+(i+1)+'</span><span>'+s+'</span></li>';}).join('');
-  var fh=t.faqs.map(function(f,i){
-    return '<div class="faq-item"><button class="faq-q" onclick="toggleFaq(\''+id+'\','+i+',this)"><span>'+f.q+'</span><span class="faq-arrow">▼</span></button>'+
-           '<div class="faq-a" id="faq-'+id+'-'+i+'">'+f.a+'</div></div>';
-  }).join('');
-
-  var btnClass='open-btn'+(t.openBtnClass?' '+t.openBtnClass:'');
-  panel.innerHTML=
-    '<div class="panel-header"><span class="panel-icon">'+t.icon+'</span><div><div class="panel-title">'+t.name+'</div><div class="panel-sub">'+t.tagline+'</div></div></div>'+
-    '<div class="what-section"><span class="what-label">🤔 מה זה?</span>'+t.what+'</div>'+
-    '<div class="inner-tabs">'+
-      '<button class="inner-tab '+(tab==='steps'?'active':'')+'" onclick="switchInner(\''+id+'\',\'steps\',this)">📋 שלב אחר שלב</button>'+
-      '<button class="inner-tab '+(tab==='faq'?'active':'')+'"   onclick="switchInner(\''+id+'\',\'faq\',this)">❓ שאלות נפוצות</button>'+
-    '</div>'+
-    '<div class="inner-section '+(tab==='steps'?'active':'')+'" id="inner-steps-'+id+'"><div class="steps-title">איך מתחילים:</div><ol class="steps-list">'+sh+'</ol></div>'+
-    '<div class="inner-section '+(tab==='faq'?'active':'')+'"   id="inner-faq-'+id+'"><div class="faq-list">'+fh+'</div></div>'+
-    '<div class="tip-box"><span class="tip-label">💡 טיפ: </span>'+t.tip+'</div>'+
-    '<a href="'+t.url+'" target="_blank" class="'+btnClass+'">פתחו את '+t.name+' עכשיו ←</a>';
-
+  buildPanel(id);
   panel.classList.add('open');
   setTimeout(function(){panel.scrollIntoView({behavior:'smooth',block:'nearest'});},60);
 }
 
+function switchDevice(id,dev){
+  activeDevice[id]=dev;
+  buildPanel(id);
+}
+
+function buildPanel(id){
+  var panel=document.getElementById('detailPanel');
+  var t=tools.filter(function(x){return x.id===id;})[0];
+  var tab=activeInnerTab[id]||'steps';
+  var dev=activeDevice[id]||'android';
+
+  var steps=t.steps;
+  if(dev==='android' && t.stepsAndroid) steps=t.stepsAndroid;
+  if(dev==='iphone'  && t.stepsIphone)  steps=t.stepsIphone;
+  if(dev==='pc'      && t.stepsPC)      steps=t.stepsPC;
+
+  var sh=steps.map(function(s,i){
+    return '<li><span class="step-num">'+(i+1)+'</span><span>'+s+'</span></li>';
+  }).join('');
+
+  var fh=t.faqs.map(function(f,i){
+    return '<div class="faq-item">'+
+      '<button class="faq-q" onclick="toggleFaq(&apos;'+id+'&apos;,'+i+',this)">'+
+      '<span>'+f.q+'</span><span class="faq-arrow">▼</span></button>'+
+      '<div class="faq-a" id="faq-'+id+'-'+i+'">'+f.a+'</div></div>';
+  }).join('');
+
+  var hasPhone=!!(t.stepsAndroid||t.stepsIphone);
+  var hasPC=!!t.stepsPC;
+  var hasDiff=hasPhone||hasPC;
+  var devSel='';
+  if(hasDiff){
+    var btns='<button class="dev-btn '+(dev==='android'?'active':'')+'" onclick="switchDevice(&apos;'+id+'&apos;,&apos;android&apos;)">🤖 Android</button>'+
+             '<button class="dev-btn '+(dev==='iphone'?'active':'')+'"  onclick="switchDevice(&apos;'+id+'&apos;,&apos;iphone&apos;)">🍎 iPhone</button>'+
+             (hasPC?'<button class="dev-btn '+(dev==='pc'?'active':'')+'" onclick="switchDevice(&apos;'+id+'&apos;,&apos;pc&apos;)">💻 מחשב</button>':'');
+    devSel='<div class="dev-intro">באיזה מכשיר אתם משתמשים?</div>'+
+           '<div class="device-sel">'+btns+'</div>';
+  }
+
+  var btnClass='open-btn'+(t.openBtnClass?' '+t.openBtnClass:'');
+  panel.innerHTML=
+    '<div class="panel-header"><span class="panel-icon">'+t.icon+'</span>'+
+    '<div><div class="panel-title">'+t.name+'</div><div class="panel-sub">'+t.tagline+'</div></div></div>'+
+    '<div class="what-section"><span class="what-label">🤔 מה זה?</span>'+t.what+'</div>'+
+    devSel+
+    '<div class="inner-tabs">'+
+      '<button class="inner-tab '+(tab==='steps'?'active':'')+'" onclick="switchInner(&apos;'+id+'&apos;,&apos;steps&apos;,this)">📋 שלב אחר שלב</button>'+
+      '<button class="inner-tab '+(tab==='faq'?'active':'')+'"   onclick="switchInner(&apos;'+id+'&apos;,&apos;faq&apos;,this)">❓ שאלות נפוצות</button>'+
+    '</div>'+
+    '<div class="inner-section '+(tab==='steps'?'active':'')+'" id="inner-steps-'+id+'">'+
+    '<div class="steps-title">איך מתחילים:</div><ol class="steps-list">'+sh+'</ol></div>'+
+    '<div class="inner-section '+(tab==='faq'?'active':'')+'"   id="inner-faq-'+id+'">'+
+    '<div class="faq-list">'+fh+'</div></div>'+
+    '<div class="tip-box"><span class="tip-label">💡 טיפ: </span>'+t.tip+'</div>'+
+    '<a href="'+t.url+'" target="_blank" class="'+btnClass+'">פתחו את '+t.name+' עכשיו ←</a>';
+}
 function closeTool(){
   var panel=document.getElementById('detailPanel');
   panel.classList.remove('open'); panel.innerHTML='';
