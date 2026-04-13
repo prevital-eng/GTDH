@@ -235,6 +235,7 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);min-h
       <div class="ai-result-badge" id="aiBadge">✨ תשובה</div>
       <div class="ai-result-text" id="aiResultText"></div>
       <button class="ai-result-copy" id="aiResultCopy">📋 העתק תשובה</button>
+      <button onclick="newQuestion()" style="width:100%;margin-top:8px;padding:11px;border-radius:12px;background:none;border:1.5px solid var(--border);color:var(--muted);font-size:13px;font-weight:700;cursor:pointer;font-family:Heebo,sans-serif;">🔄 שאלה חדשה</button>
     </div>
 
     <!-- TOOL DETAIL -->
@@ -659,7 +660,7 @@ window.addEventListener('DOMContentLoaded', function() {
   document.getElementById('chipsRemote').innerHTML = cats.remote.map(chipHTML).join('');
   document.getElementById('chipsBrowse').innerHTML = cats.browse.map(chipHTML).join('');
   document.getElementById('chipsGoogle').innerHTML =
-    '<a href="'+googleLink.url+'" target="_blank" class="chip chip-google" style="grid-column:1/-1">'+
+    '<a href="'+googleLink.url+'" target="_blank" class="chip chip-google" style="grid-column:1/-1" onclick="event.stopPropagation()">'+
     '<span class="chip-icon">'+googleLink.icon+'</span>'+
     '<span class="chip-texts"><span class="chip-name">'+googleLink.name+' ←</span><span class="chip-tag">'+googleLink.tagline+'</span></span>'+
     '</a>';
@@ -887,6 +888,16 @@ function copySteps(id){
     var btn=document.getElementById('copy-btn-'+id);
     if(btn){ btn.textContent='✓ הועתק!'; setTimeout(function(){ btn.textContent='📋 העתק מדריך'; },2000); }
   });
+}
+
+function newQuestion(){
+  document.getElementById('searchInput').value = '';
+  document.getElementById('searchClear').style.display = 'none';
+  document.getElementById('hintText').style.display    = 'block';
+  document.getElementById('aiResult').className        = 'ai-result';
+  document.getElementById('toolsSection').className    = 'tools-section';
+  closeTool();
+  document.getElementById('searchInput').focus();
 }
 
 function closeTool(){
