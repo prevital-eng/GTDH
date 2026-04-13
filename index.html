@@ -211,13 +211,10 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);min-h
     <div style="font-size:11px;color:var(--muted);text-align:center;margin:-8px 0 12px;">💡 Tab לקבלת הצעה · Enter לחיפוש</div>
 
     <!-- HINT -->
-    <div class="search-hint-text" id="hintText">
-      💡 כתבו <strong>"כלים"</strong> לרשימת כל הכלים<br>
-      או כתבו שאלה חופשית בכל שפה
-    </div>
+    <div class="search-hint-text" id="hintText" style="display:none"></div>
 
     <!-- TOOLS LIST -->
-    <div class="tools-section" id="toolsSection">
+    <div class="tools-section show" id="toolsSection">
       <div class="cat-label">💬 תקשורת</div>
       <div class="chips-grid" id="chipsComm"></div>
       <div class="cat-label">📹 שיחות וידאו</div>
@@ -567,7 +564,7 @@ var tools = [
 /* כלי גוגל – קישור לאפליקציה */
 var googleLink = {
   id:'google-all', icon:'🌐', name:'כל כלי גוגל', tagline:'Gmail, Maps, YouTube, יומן ועוד',
-  url:'https://prevital-eng.github.io/GTGoogle/'
+  url:'https://prevital-eng.github.io/GTDigital/google-tools.html'
 };
 
 /* ══ PROXY & PROMPTS ══ */
@@ -674,7 +671,8 @@ window.addEventListener('DOMContentLoaded', function() {
     var v = inp.value;
     clrBtn.style.display = v.length ? 'block' : 'none';
     if (!v.trim()) {
-      document.getElementById('hintText').style.display = 'block';
+      document.getElementById('hintText').style.display = 'none';
+      document.getElementById('toolsSection').className = 'tools-section show';
       clearSug();
     } else {
       document.getElementById('hintText').style.display = 'none';
@@ -776,8 +774,8 @@ function clearSearch(){
   var inp = document.getElementById('searchInput');
   inp.value = ''; clearSug();
   document.getElementById('searchClear').style.display = 'none';
-  document.getElementById('hintText').style.display    = 'block';
-  document.getElementById('toolsSection').className    = 'tools-section';
+  document.getElementById('hintText').style.display    = 'none';
+  document.getElementById('toolsSection').className    = 'tools-section show';
   document.getElementById('aiResult').className        = 'ai-result';
   closeTool(); inp.focus();
 }
@@ -893,9 +891,9 @@ function copySteps(id){
 function newQuestion(){
   document.getElementById('searchInput').value = '';
   document.getElementById('searchClear').style.display = 'none';
-  document.getElementById('hintText').style.display    = 'block';
+  document.getElementById('hintText').style.display    = 'none';
   document.getElementById('aiResult').className        = 'ai-result';
-  document.getElementById('toolsSection').className    = 'tools-section';
+  document.getElementById('toolsSection').className    = 'tools-section show';
   closeTool();
   document.getElementById('searchInput').focus();
 }
