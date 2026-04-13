@@ -189,8 +189,8 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);min-h
         <div id="autocompleteOverlay" style="position:absolute;right:0;top:0;height:100%;display:flex;align-items:center;padding:0 4px;pointer-events:none;font-size:16px;font-family:'Heebo',sans-serif;white-space:nowrap;overflow:hidden;width:100%;"></div>
         <input type="text" id="searchInput" placeholder='כתבו שאלה, או "כלים" לרשימה' autocomplete="off" autocorrect="off" spellcheck="false" style="position:relative;z-index:1;background:transparent;width:100%;">
       </div>
-      <button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
-      <button class="search-go" id="searchGo" onclick="runSearch()">🔍</button>
+      <button class="search-clear" id="searchClear" >✕</button>
+      <button class="search-go" id="searchGo" >🔍</button>
     </div>
     <div style="font-size:11px;color:var(--muted);text-align:center;margin:-8px 0 12px;">💡 Tab לקבלת הצעה · Enter לחיפוש</div>
 
@@ -548,18 +548,19 @@ window.addEventListener('DOMContentLoaded',function(){
     clearTimeout(acTimer);
     acTimer=setTimeout(function(){ showSug(inp,getSug(v)); },120);
   }
-  // כל אירוע קלט אפשרי – נייד ודסקטופ
+  // כל אירוע קלט – נייד ודסקטופ
   ['input','keyup','change','compositionend','paste'].forEach(function(ev){
     inp.addEventListener(ev, onInput);
   });
-  inp.addEventListener('keydown',function(e){
-    if((e.key==='Tab'||e.key==='ArrowLeft')&&lastSug){ e.preventDefault(); acceptSug(); return; }
-    if(e.key==='Enter') runSearch();
+  inp.addEventListener('keydown', function(e){
+    if ((e.key==='Tab'||e.key==='ArrowLeft') && lastSug){ e.preventDefault(); acceptSug(); return; }
+    if (e.key==='Enter'){ e.preventDefault(); runSearch(); }
   });
-  // נייד: לחיצה על כפתור החיפוש תמיד תעבוד
-  document.getElementById('searchGo').addEventListener('click', function(){
-    if(document.getElementById('searchInput').value.trim()) runSearch();
-  });
+  // כפתורי חיפוש וניקוי
+  document.getElementById('searchGo').addEventListener('click',   function(e){ e.preventDefault(); runSearch(); });
+  document.getElementById('searchGo').addEventListener('touchend', function(e){ e.preventDefault(); runSearch(); });
+  document.getElementById('searchClear').addEventListener('click',    function(){ clearSearch(); });
+  document.getElementById('searchClear').addEventListener('touchend', function(e){ e.preventDefault(); clearSearch(); });
 });
 
 /* ══ SEARCH ══ */
