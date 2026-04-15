@@ -14,8 +14,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <script src="https://prevital-eng.github.io/gimlatech-core/gimlatech-core.js"></script>
 <style>
+:root {
+  --bg:#0f172a; --surface:#1e293b; --surface2:#273549;
+  --accent:#38bdf8; --accent2:#818cf8;
+  --text:#f1f5f9; --muted:#94a3b8; --border:#334155;
+  --wa:#25d366; --yellow:#fbbf24;
+}
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+body{font-family:'Heebo',sans-serif;background:#0f172a !important;color:#f1f5f9 !important;min-height:100vh;}
 
 .page-wrap{display:flex;min-height:100vh;}
 .sidebar{display:none;}
@@ -207,7 +213,7 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);min-h
 .hidden{display:none!important;}
 </style>
 </head>
-<body>
+<body class="gt-dark">
 <div class="page-wrap">
 
 <div class="sidebar">
