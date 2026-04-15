@@ -12,6 +12,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GimlaTech – כלים דיגיטליים</title>
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://prevital-eng.github.io/gimlatech-core/gimlatech-core.js"></script>
 <style>
 :root {
   --bg:#0f172a; --surface:#1e293b; --surface2:#273549;
@@ -163,6 +164,47 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);min-h
 .footer-copy{text-align:center;padding:8px 18px 5px;border-top:1px solid #1e293b;}
 .footer-copy button{background:none;border:none;color:#334155;font-size:11px;cursor:pointer;font-family:'Heebo',sans-serif;}
 .footer-rights{background:#0c1a2e;border-top:1px solid #1e3a5f;padding:7px 18px;text-align:center;font-size:11px;color:var(--accent);letter-spacing:0.3px;}
+
+/* התאמת כותרת התבנית לעיצוב הכהה */
+#gt-header.header {
+  background: linear-gradient(180deg,#0f172a 0%,#0d1f38 100%);
+  padding: 16px 18px 14px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(12px);
+  text-align: center;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+  display: block;
+}
+#gt-header .gt-header-logos {
+  justify-content: center;
+  margin-bottom: 8px;
+}
+#gt-header .gt-logo {
+  border-radius: 50%;
+  border: 2px solid #38bdf8;
+  height: 48px;
+}
+#gt-header .gt-header-title h1 {
+  font-size: 22px;
+  font-weight: 900;
+  color: #f1f5f9;
+  letter-spacing: -0.5px;
+}
+#gt-header .gt-header-title p {
+  font-size: 13px;
+  color: #94a3b8;
+  opacity: 1;
+}
+/* פוטר — התאמה לעיצוב הכהה */
+#gt-footer .gt-footer {
+  background: transparent;
+  border-top: none;
+  color: #475569;
+  padding: 8px 18px;
+}
+#gt-footer .gt-footer a { color: #38bdf8; }
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);display:flex;align-items:flex-end;justify-content:center;z-index:100;backdrop-filter:blur(4px);}
 .modal-box{background:var(--surface);border-radius:20px 20px 0 0;padding:24px 20px 32px;width:100%;max-width:520px;border-top:1px solid var(--border);max-height:85vh;overflow-y:auto;}
 .modal-title{font-size:17px;font-weight:900;margin-bottom:6px;}
@@ -192,6 +234,8 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);min-h
     <div class="logo-row">
       <img src="https://prevital-eng.github.io/GT-GDSH/logo.png" style="width:48px;height:48px;border-radius:50%;object-fit:cover;border:2px solid #38bdf8" alt="GimlaTech" onerror="this.style.display='none'">
       <div class="logo-text">Gimla<span>Tech</span></div>
+      <!-- לוגו מט"ב — יוצג כשיתקבל אישור -->
+      <img id="matb-logo" src="" alt='מט"ב' style="display:none;height:38px;border-right:2px solid rgba(56,189,248,0.3);padding-right:10px;margin-right:4px">
     </div>
     <div class="page-title">כלים דיגיטליים</div>
     <div class="page-sub">מדריך + עוזר AI בכל שפה</div>
@@ -244,7 +288,7 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);min-h
     </div>
   </div>
 
-  <div class="footer-copy"><button onclick="document.getElementById('about-modal').classList.remove('hidden')">© 2026 רויטל פלד &nbsp;·&nbsp; 🛡️ זכויות יוצרים</button></div>
+  <div id="gt-footer"></div>
   <div class="footer-rights">🛡️ כלי זה מוגן בזכויות יוצרים &nbsp;|&nbsp; © Revital Peled 2026 &nbsp;|&nbsp; All Rights Reserved</div>
 
   <div class="modal-overlay hidden" id="about-modal" onclick="if(event.target===this)this.classList.add('hidden')">
@@ -491,8 +535,15 @@ var googleLink = {
   url:'./gt-google-tools.html'
 };
 
+/* ══ APP CONFIG ══ */
+var APP_CONFIG = {
+  appName: 'כלים דיגיטליים',
+  appSubtitle: 'מדריך + עוזר AI בכל שפה',
+  // matbLogoUrl: '',  // יש להסיר הערה כשיתקבל אישור מט"ב
+};
+
 /* ══ PROXY & PROMPTS ══ */
-var PROXY = 'https://script.google.com/macros/s/AKfycbziw5JD4UTjz4idl45Xwf5EnUuB_NVnI0JUUibOd2XefAFn9kdISJVKkP46_ZirHeez/exec';
+var PROXY = GT_DEFAULTS.apiUrl;
 var SYS = 'אתה עוזר דיגיטלי מומחה לכלים דיגיטליים.\n' +
   'כללים:\n' +
   '1. ענה בשפת השאלה (עברית/אנגלית/רוסית/כל שפה).\n' +
@@ -566,6 +617,10 @@ function acceptSug(){
 var activeTool=null, activeInnerTab={};
 
 window.addEventListener('DOMContentLoaded', function() {
+
+  // אתחול תבנית GimlaTech — כותרת מקורית, פוטר ו-AI מהתבנית
+  gtInjectStyles();
+  gtRenderFooter(APP_CONFIG);
 
   // בניית chips
   var cats = {comm:[], video:[], remote:[], browse:[]};
@@ -670,11 +725,8 @@ function runSearch(){
   document.getElementById('hintText').style.display='none';
   document.getElementById('toolsSection').className='tools-section';
 
-  fetch(PROXY+'?question='+encodeURIComponent(enriched)+'&system='+encodeURIComponent(SYS))
-    .then(function(r){return r.json();})
-    .then(function(data){
-      var text=(data.content&&data.content[0]&&data.content[0].text)?data.content[0].text
-              :(data.error?'⚠️ '+(data.error.message||'שגיאה'):'לא התקבלה תשובה.');
+  gtAskAI(enriched, SYS, APP_CONFIG)
+    .then(function(text){
       badge.textContent='✨ תשובה';
       txt.textContent=text;
       copyBtn.className='ai-result-copy show';
