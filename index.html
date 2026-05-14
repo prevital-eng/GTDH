@@ -281,7 +281,7 @@ body { font-family: 'Heebo', sans-serif; background: #bfdbee; color: #0c1f4a; fo
 </div>
 
 <script>
-var API = 'https://script.google.com/macros/s/AKfycbzVCjho1tB80aPTq5JyU_liLfgELmDTIRyBwd9R458xoV5bNSjoyyhZUxA3go2GPH8Z/exec';
+var API = 'https://script.google.com/macros/s/AKfycbz3wVJzFDVm8KmUlDSTd-eiB-1f6hXlYwelVcBPcuWXZ26RmGvtQ_xbkbsz-fTZFvBc/exec';
 var chatHistory = [];
 var currentApp = 'gth';
 var selectedDevice = null, selectedOS = null;
@@ -615,6 +615,10 @@ function sendMessage() {
 function callAI(question) {
   var typing = showTyping();
   chatHistory.push({role:'user', content:question});
+  // רישום שאלה ליומן
+  try {
+    fetch(API+'?action=logQuestion&email='+encodeURIComponent(currentUserEmail)+'&name='+encodeURIComponent(currentUserName)+'&app='+encodeURIComponent(currentApp));
+  } catch(e) {}
   var sys = APPS[currentApp].system;
   var msgs = chatHistory.slice(-8);
   var qs = '?question='+encodeURIComponent(question)+'&system='+encodeURIComponent(sys)+'&history='+encodeURIComponent(JSON.stringify(msgs.slice(0,-1)));
@@ -680,7 +684,7 @@ window.onload = function() { initAuth(); };
 var GOOGLE_CLIENT_ID = '882763453521-junm9rvoi5et71i4u03igoo211cfg225.apps.googleusercontent.com';
 
 // כתובת ה-Apps Script (כבר מוגדרת למעלה כ-API)
-var AUTH_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzVCjho1tB80aPTq5JyU_liLfgELmDTIRyBwd9R458xoV5bNSjoyyhZUxA3go2GPH8Z/exec';
+var AUTH_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz3wVJzFDVm8KmUlDSTd-eiB-1f6hXlYwelVcBPcuWXZ26RmGvtQ_xbkbsz-fTZFvBc/exec';
 
 var currentUserEmail = '';
 var currentUserName  = '';
