@@ -321,4 +321,535 @@ var APPS = {
 // ════════ מאגר ידע ════════
 var DB = {
   gth: [
-    {title:'אין אינטרנט — Windows',kw:['אינטרנט','חיבור','wifi','windows','לא מתחבר','דפדפן']
+    {title:'אין אינטרנט — Windows',kw:['אינטרנט','חיבור','wifi','windows','לא מתחבר','דפדפן'],steps:['לחצו על סמל WiFi בפינה ימנית תחתונה ← בדקו חיבור.','כבו ← הדליקו את ה-WiFi.','הפעילו מחדש את המחשב והנתב.'],tip:'💡 הנתב: כבו 30 שניות ← הדליקו.'},
+    {title:'אין אינטרנט — iPhone',kw:['אינטרנט','wifi','iphone','safari'],steps:['הגדרות ← WiFi ← כבו ← הדליקו.','לחצו שם הרשת ← "שכח" ← התחברו שוב.','כבו iPhone לגמרי ← הדליקו.'],tip:'✈️ נסו מצב טיסה 10 שניות.'},
+    {title:'אין אינטרנט — Android',kw:['אינטרנט','wifi','אנדרואיד','samsung','לא מתחבר'],steps:['הגדרות ← WiFi ← כבו ← הדליקו.','שכחו רשת ← התחברו מחדש.','כבו/הדליקו טלפון + נתב.'],tip:'📶 יש 4G? כבו WiFi והשתמשו בנתונים.'},
+    {title:'Windows לא עולה',kw:['windows','לא עולה','מסך כחול','תקוע','bsod'],steps:['כיבוי כפוי 3 פעמים ← Windows ינסה לתקן.','מסך כחול? רשמו קוד שגיאה.','עולה אבל איטי? המתינו לעדכון.'],tip:'📞 מסך כחול קבוע = פנו לטכנאי.'},
+    {title:'המחשב איטי',kw:['איטי','תקוע','קפוא','רץ לאט'],steps:['Ctrl+Shift+Esc ← סגרו תוכנות שצורכות הרבה.','הפעילו מחדש.','בדקו עדכונים ממתינים.'],tip:'💡 הפעלה מחדש פעם בשבוע שומרת על מהירות.'},
+    {title:'iPhone לא נדלק',kw:['iphone','לא נדלק','כבה','מסך שחור','מת'],steps:['חברו לחשמל עם כבל מקורי 15 דקות.','הגבר עוצמה ← הנמך ← החזיקו כפתור צד עד לוגו Apple.','לא עולה? פנו לחנות Apple.'],tip:'🔋 מטען לא מקורי גורם לבעיות.'},
+    {title:'סוללה מתרוקנת מהר',kw:['סוללה','מתרוקנת','מהר','battery'],steps:['הגדרות ← סוללה ← בדקו מה צורך יותר.','כבו WiFi/Bluetooth כשלא משתמשים.','הנמיכו בהירות מסך.'],tip:'💡 סוללה מעל 3 שנים? ייתכן שצריכה החלפה.'},
+    {title:'המדפסת לא מדפיסה',kw:['מדפסת','הדפסה','לא מדפיס'],steps:['בדקו שהמדפסת דלוקה ומחוברת.','Windows: מדפסות ← לא "offline".','כבו 30 שניות ← הדליקו.'],tip:'🖨️ תור תקוע? מחקו כל העבודות.'},
+  ],
+  gdsh: [
+    {title:'ביטוח לאומי — הגשת תביעה',kw:['ביטוח לאומי','תביעה','דמי לידה','נכות','אבטלה','קצבה'],steps:['היכנסו ל-btl.gov.il ← "שירות אישי" ← "הגשת תביעה".','בחרו סוג הגמלה (אזרח ותיק / נכות / אבטלה / דמי לידה).','מלאו טופס מקוון ← צרפו מסמכים נדרשים ← שלחו.','תשובה תוך 30-60 יום — הודעה בדואר.'],tip:'💡 *6050 — מוקד ביטוח לאומי | א-ה 8:00-15:30'},
+    {title:'תיאום מס',kw:['תיאום מס','טופס 116','ניכוי מס','מעסיקים','מס הכנסה תיאום'],steps:['היכנסו ל-taxes.gov.il ← "שירות עצמי" ← "תיאום מס".','זהו: תעודת זהות + סיסמה / MyDigiID / כרטיס חכם.','מלאו טופס 116 — פרטי כל מעסיקיכם + הכנסות נוספות.','שלחו — קבלו אישור אוטומטי מיידי לדוא"ל.','הדפיסו/שמרו את האישור ומסרו לכל מעסיק.'],tip:'💡 *4954 — מוקד מס הכנסה | ניתן גם בסניפי פקיד השומה'},
+    {title:'מס הכנסה — החזר מס',kw:['מס הכנסה','החזר','טופס 106','ניכוי','החזר מס'],steps:['קבלו טופס 106 מכל מעסיק (בד"כ עד מרץ).','היכנסו ל-taxes.gov.il ← "שירות עצמי" ← "הגשת דו"ח שנתי".','מלאו דו"ח ← צרפו טפסי 106 ← שלחו.','קבלו החזר לחשבון בנק תוך 30-90 יום.'],tip:'💡 *4954 — מוקד מס הכנסה | אפשר להגיש 6 שנים אחורה'},
+    {title:'גמלת סיעוד',kw:['סיעוד','עובד סיעודי','גמלת סיעוד','עזרה בבית','מטפל'],steps:['הגישו בקשה לביטוח לאומי: btl.gov.il ← "גמלאות" ← "סיעוד" ← "הגשת תביעה".','ביטוח לאומי ישלח מעריך לביקור בית לבדיקת תפקוד.','תוצאה: זכאות לגמלה בכסף (לבחור מטפל עצמאי) או בשירות (חברת סיעוד).','אם בכסף — ניתן להעסיק עובד סיעודי ישירות.'],tip:'💡 *6050 — ביטוח לאומי | זכאות לפי דרגת תלות'},
+      ],
+  gtdh: [
+    {title:'התקנת WhatsApp',kw:['whatsapp','ווטסאפ','התקנה','הורדה'],steps:['Android: Play Store ← WhatsApp ← התקינו.','iPhone: App Store ← WhatsApp ← קבלו.','פתחו ← מספר טלפון ← קוד SMS ← אשרו.'],tip:'💡 WhatsApp Web: web.whatsapp.com'},
+    {title:'התקנת Zoom',kw:['zoom','זום','התקנה','שיחת וידאו'],steps:['zoom.us/download ← הורידו ← התקינו.','פתחו ← הירשמו.','להצטרף: "Join" ← קוד פגישה.'],tip:'💡 ניתן להשתתף ב-Zoom ללא חשבון.'},
+    {title:'AnyDesk — גישה מרחוק',kw:['anydesk','גישה מרחוק','עזרה מרחוק'],steps:['anydesk.com/download ← הורידו.','פתחו ← תראו מספר 9 ספרות.','שתפו עם הטכנאי.'],tip:'⚠️ שתפו רק עם מי שסומכים! 💡 ייתכן שיידרש תוסף דפדפן.'},
+    {title:'פתיחת חשבון Gmail',kw:['gmail','גמייל','מייל','אימייל','גוגל'],steps:['mail.google.com ← "צרו חשבון".','בחרו שם משתמש ← סיסמה.','אשרו מספר טלפון.'],tip:'💡 שמרו סיסמה במקום בטוח.'},
+    {title:'Google Maps — ניווט',kw:['מפות','ניווט','גוגל מפות','כתובת'],steps:['פתחו Google Maps.','הקישו יעד בחיפוש.','לחצו "ניווט" הכחול.'],tip:'💡 הורידו מפה אופליין לשימוש ללא אינטרנט.'},
+  ],
+  robot: [
+    {title:'מברשת ראשית תקועה',kw:['מברשת','תקועה','לא מסתובבת','brush','stuck'],steps:['הפכו ושחררו כיסוי המברשת.','הוציאו והסירו שיער עם מספריים.','בדקו שהציר חופשי.','החזירו — אם תקועה, אפסו 10 שניות.'],tip:'💡 שיער כרוך הוא הסיבה הנפוצה ביותר.'},
+    {title:'שאיבה חלשה',kw:['שאיבה חלשה','לא שואב','weak suction'],steps:['רוקנו מיכל האבק.','הנערו הפילטר מחוץ לבית.','בדקו חסימות בכניסת השאיבה.'],tip:'💡 מיכל מלא מפחית שאיבה ב-40%.'},
+    {title:'לא חוזר לתחנה',kw:['לא חוזר','תחנה','dock','docking'],steps:['ודאו תחנה מחוברת ונורית דולקת.','פנו 50 ס"מ משני הצדדים.','נקו חיישני IR במטלית יבשה.','נתקו תחנה 30 שניות ← החזירו.'],tip:'💡 אור שמש על התחנה מבלבל חיישני IR.'},
+    {title:'הרובוט נתקע / סובב',kw:['נתקע','סובב','תקוע','עיגולים','stuck'],steps:['הרימו והניחו במיקום אחר.','נקו חיישני נפילה בתחתית.','בדקו שאין שטיח מבלבל.','מחקו מפה ובנו מחדש.'],tip:'💡 פינות עיוורות הן מלכודת נפוצה.'},
+    {title:'דליפת מים',kw:['דולף','מים','leak','רטוב'],steps:['הוציאו מיכל מים ← בדקו שהפקק סגור.','ודאו שהמגבת מחוברת נכון.','מלאו עד הקו המסומן בלבד.'],tip:'💡 מגבת רפויה גם גורמת לריצוף לא אחיד.'},
+    {title:'הרובוט לא נטען',kw:['לא נטען','טעינה','charging','מגעים'],steps:['נקו מגעי הטעינה — אלכוהול + מטלית.','ודאו כבל תחנה ישירות לשקע.','נסו תחנה אחרת אם אפשר.'],tip:'💡 מגעים שחורים = יש להחליף תחנה.'},
+    {title:'בעיית Wi-Fi',kw:['wifi','חיבור','לא מתחבר','connection'],steps:['ודאו שהרובוט ברשת 2.4GHz (לא 5GHz).','אתחלו הרובוט (לחיצה ארוכה Home 5 שניות).','מחקו מהאפליקציה וחברו מחדש.'],tip:'💡 רוב הרובוטים לא תומכים ב-5GHz.'},
+    {title:'שגיאת LiDAR',kw:['lidar','לייזר','laser','כיפה'],steps:['ודאו שהמכסה המסתובב חופשי.','נקו הכיפה במטלית רכה.','אפסו מפה ואתחלו.'],tip:'💡 אבק על הכיפה הוא הסיבה הנפוצה.'},
+  ]
+};
+
+var ERROR_CODES = {
+  Roborock: {'Err1':'לייזר לא מסתובב','Err2':'חיישן קדמי','Err3':'גלגל שמאל','Err4':'גלגל ימין','Err5':'מברשת צד','Err6':'מברשת ראשית חסומה','Err7':'חיישן נפילה','Err8':'סוללה נמוכה','Err14':'מיכל מלא','Err18':'נתקע'},
+  Ecovacs:  {'001':'חיישן נפילה','002':'גלגל תקוע','003':'מברשת חסומה','004':'מיכל מלא','005':'LiDAR','006':'טעינה'},
+  Dreame:   {'F1':'נפילה','F2':'גלגל','F3':'מברשת','F5':'LiDAR'},
+  Narwal:   {'E001':'נפילה','E002':'גלגל','E003':'מברשת','E005':'LiDAR'},
+};
+
+var OS_MAP = {
+  pc:    [{id:'win',icon:'🪟',label:'Windows'},{id:'mac',icon:'🍎',label:'Mac / MacBook'}],
+  phone: [{id:'android',icon:'🤖',label:'Android'},{id:'ios',icon:'📱',label:'iPhone'}],
+  extra: [{id:'win',icon:'🪟',label:'Windows'},{id:'mac',icon:'🍎',label:'Mac'}]
+};
+
+// ════════ החלפת אפליקציה ════════
+function switchApp(app, btn) {
+  currentApp = app;
+  chatHistory = [];
+  selectedDevice = null;
+  selectedOS = null;
+
+  // עדכן טאבים
+  document.querySelectorAll('.app-tab').forEach(function(t){ t.classList.remove('active'); });
+  if (btn) btn.classList.add('active');
+
+  // עדכן כותרת ו-placeholder
+  var cfg = APPS[app];
+  document.getElementById('app-title').textContent = cfg.title;
+  document.getElementById('chat-input').placeholder = cfg.placeholder;
+
+  // הצג/הסתר אלמנטים ייחודיים
+  document.getElementById('device-chips-wrap').classList.toggle('hidden', app !== 'gth');
+  document.getElementById('os-chips-wrap').classList.add('hidden');
+  var errRow = document.getElementById('error-row');
+  errRow.style.display = app === 'robot' ? 'flex' : 'none';
+  document.getElementById('cam-btn').style.display = app === 'robot' ? 'flex' : 'none';
+
+  // נקה שיח ופתח מחדש
+  var wrap = document.getElementById('chat-wrap');
+  wrap.innerHTML = '';
+  addBubble('bot', cfg.welcome);
+}
+
+// ════════ utils ════════
+function autoResize(el) {
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 120) + 'px';
+}
+function scrollToBottom() {
+  window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});
+}
+function addBubble(type, html) {
+  var wrap = document.getElementById('chat-wrap');
+  var d = document.createElement('div');
+  d.className = 'bubble ' + type;
+  d.innerHTML = html;
+  wrap.appendChild(d);
+  scrollToBottom();
+  return d;
+}
+function showTyping() {
+  return addBubble('typing','<div class="dots"><span></span><span></span><span></span></div>');
+}
+function escH(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ════════ GTH chips ════════
+function onChatType() {
+  var q = document.getElementById('chat-input').value;
+  var dw = document.getElementById('device-chips-wrap');
+  var ow = document.getElementById('os-chips-wrap');
+  if (q.length > 0 && currentApp === 'gth') {
+    dw.classList.add('hidden');
+    ow.classList.add('hidden');
+  } else if (currentApp === 'gth') {
+    dw.classList.remove('hidden');
+    if (selectedDevice) ow.classList.remove('hidden');
+  }
+}
+
+function selectDevice(id, icon, label) {
+  selectedDevice = {id:id, label:icon+' '+label};
+  selectedOS = null;
+  ['chip-pc','chip-phone','chip-extra'].forEach(function(c){
+    var el=document.getElementById(c); if(el) el.classList.remove('sel');
+  });
+  document.getElementById('chip-'+id).classList.add('sel');
+  var osList = OS_MAP[id]||[];
+  var osArea = document.getElementById('os-chips');
+  document.getElementById('os-chips-label').textContent = label+' — בחרו מערכת הפעלה:';
+  osArea.innerHTML = '';
+  osList.forEach(function(os) {
+    var btn = document.createElement('button');
+    btn.className = 'chip';
+    btn.textContent = os.icon+' '+os.label;
+    btn.onclick = function(){ selectOS(os, btn); };
+    osArea.appendChild(btn);
+  });
+  document.getElementById('os-chips-wrap').classList.remove('hidden');
+  chatHistory.push({role:'user', content:'המכשיר שלי: '+label});
+  chatHistory.push({role:'assistant', content:'בסדר, עובד עם '+label});
+}
+
+function selectOS(os, btn) {
+  selectedOS = os;
+  document.querySelectorAll('#os-chips .chip').forEach(function(c){c.classList.remove('sel');});
+  btn.classList.add('sel');
+  var ctx = (selectedDevice?selectedDevice.label+' / ':'')+os.icon+' '+os.label;
+  APPS.gth.system = 'אתה עוזר טכני מקצועי. המשתמש עובד עם: '+ctx+'.\nתן פתרון ממוקד.\nאם מבקשים תרגום — תרגם.\nפורמט: **כותרת** | 1.2.3. | 💡 טיפ';
+  addBubble('bot','✅ <strong>'+escH(ctx)+'</strong> — תארו את הבעיה ואעזור 🎯');
+  chatHistory.push({role:'user',content:'מערכת הפעלה: '+os.label});
+  chatHistory.push({role:'assistant',content:'בסדר, עובד עם '+ctx});
+  document.getElementById('chat-input').focus();
+}
+
+// ════════ חיפוש מאגר ════════
+function searchDB(q) {
+  var dbList = DB[currentApp] || [];
+  if (!dbList.length) return null;
+  var words = q.toLowerCase().split(/\s+/);
+  var best = null, bestScore = 0;
+  dbList.forEach(function(item) {
+    var text = (item.title+' '+(item.kw||[]).join(' ')).toLowerCase();
+    var sc = 0;
+    words.forEach(function(w){ if (w.length>1 && text.indexOf(w)!==-1) sc++; });
+    if (sc > bestScore) { bestScore = sc; best = item; }
+  });
+  return bestScore >= 4 ? best : null;
+}
+
+function lookupError(code) {
+  var cu = code.trim().toUpperCase();
+  for (var brand in ERROR_CODES) {
+    var codes = ERROR_CODES[brand];
+    for (var k in codes) {
+      if (k.toUpperCase() === cu || cu.indexOf(k.toUpperCase()) !== -1)
+        return {brand:brand, code:k, desc:codes[k]};
+    }
+  }
+  return null;
+}
+
+function renderAnswer(item) {
+  var stepsHTML = (item.steps||[]).map(function(s,i){
+    return '<div class="step-item"><div class="step-num">'+(i+1)+'</div><div class="step-text">'+escH(s)+'</div></div>';
+  }).join('');
+  var id = 'cp_'+Date.now();
+  var plain = item.title+'\n\n'+(item.steps||[]).map(function(s,i){return (i+1)+'. '+s;}).join('\n')+(item.tip?'\n\n'+item.tip:'');
+  var html = '<strong>'+escH(item.title)+'</strong><br><br>'+stepsHTML;
+  if (item.tip) html += '<div class="tip-box">'+escH(item.tip)+'</div>';
+  html += '<button class="copy-btn" id="'+id+'">📋 העתק תשובה</button>';
+  addBubble('bot', html);
+  setTimeout(function(){
+    var btn=document.getElementById(id);
+    if(btn) btn.onclick=function(){
+      navigator.clipboard.writeText(plain).then(function(){
+        btn.textContent='✓ הועתק!';
+        setTimeout(function(){btn.textContent='📋 העתק תשובה';},2000);
+      });
+    };
+  },100);
+}
+
+function renderAIResponse(text) {
+  var lines = text.split('\n').map(function(l){return l.trim();}).filter(Boolean);
+  var title='', steps=[], tip='';
+  lines.forEach(function(line){
+    if (line.startsWith('**')&&line.endsWith('**')) title=line.replace(/\*\*/g,'');
+    else if (/^[1-9]\.\s/.test(line)) steps.push(line.replace(/^[1-9]\.\s/,''));
+    else if (line.startsWith('💡')) tip=line;
+    else if (!title&&steps.length===0) title=line.replace(/\*\*/g,'');
+  });
+  if (!steps.length) {
+    var id='cp_'+Date.now();
+    var plain = text;
+    var html = escH(text).replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
+    html += '<button class="copy-btn" id="'+id+'">📋 העתק תשובה</button>';
+    addBubble('bot', html);
+    setTimeout(function(){
+      var btn=document.getElementById(id);
+      if(btn) btn.onclick=function(){
+        navigator.clipboard.writeText(plain).then(function(){
+          btn.textContent='✓ הועתק!';
+          setTimeout(function(){btn.textContent='📋 העתק תשובה';},2000);
+        }).catch(function(){ btn.textContent='⚠️ נכשל'; });
+      };
+    },100);
+    return;
+  }
+  var id='cp_'+Date.now();
+  var plain=(title?title+'\n\n':'')+steps.map(function(s,i){return (i+1)+'. '+s;}).join('\n')+(tip?'\n\n'+tip:'');
+  var html='';
+  if (title) html+='<strong>'+escH(title)+'</strong><br><br>';
+  html+=steps.map(function(s,i){return '<div class="step-item"><div class="step-num">'+(i+1)+'</div><div class="step-text">'+escH(s)+'</div></div>';}).join('');
+  if (tip) html+='<div class="tip-box">'+escH(tip)+'</div>';
+  html+='<button class="copy-btn" id="'+id+'">📋 העתק תשובה</button>';
+  addBubble('bot', html);
+  setTimeout(function(){
+    var btn=document.getElementById(id);
+    if(btn) btn.onclick=function(){
+      navigator.clipboard.writeText(plain).then(function(){
+        btn.textContent='✓ הועתק!';
+        setTimeout(function(){btn.textContent='📋 העתק תשובה';},2000);
+      });
+    };
+  },100);
+}
+
+// ════════ שליחה ════════
+function sendMessage() {
+  var q = document.getElementById('chat-input').value.trim();
+  var errCode = currentApp==='robot' ? document.getElementById('error-input').value.trim() : '';
+  if (!q && !errCode) return;
+
+  var fullQ = q + (errCode ? ' (קוד שגיאה: '+errCode+')' : '');
+  addBubble('user', escH(fullQ));
+  document.getElementById('chat-input').value = '';
+  document.getElementById('chat-input').style.height = 'auto';
+  if (errCode) document.getElementById('error-input').value = '';
+
+  // החזר chips
+  if (currentApp==='gth') {
+    document.getElementById('device-chips-wrap').classList.remove('hidden');
+    if (selectedDevice) document.getElementById('os-chips-wrap').classList.remove('hidden');
+  }
+
+  // קוד שגיאה
+  if (errCode) {
+    var found = lookupError(errCode);
+    if (found) {
+      var t = showTyping();
+      setTimeout(function(){
+        t.remove();
+        addBubble('bot','🚨 <strong>'+escH(errCode.toUpperCase())+' — '+escH(found.brand)+'</strong><br>'+escH(found.desc)+'<br><br>רוצים פתרון מפורט?');
+        chatHistory.push({role:'user',content:fullQ});
+        chatHistory.push({role:'assistant',content:'קוד '+errCode+': '+found.desc});
+      },500);
+      return;
+    }
+  }
+
+  // מאגר ידע
+  var dbResult = searchDB(fullQ);
+  if (dbResult) {
+    var t = showTyping();
+    setTimeout(function(){
+      t.remove();
+      renderAnswer(dbResult);
+      chatHistory.push({role:'user',content:fullQ});
+      chatHistory.push({role:'assistant',content:'פתרון: '+dbResult.title});
+    },500);
+    return;
+  }
+
+  callAI(fullQ);
+}
+
+function callAI(question) {
+  var typing = showTyping();
+  chatHistory.push({role:'user', content:question});
+  // רישום שאלה ליומן
+  try {
+    fetch(API+'?action=logQuestion&email='+encodeURIComponent(currentUserEmail)+'&name='+encodeURIComponent(currentUserName)+'&app='+encodeURIComponent(currentApp));
+  } catch(e) {}
+  var sys = APPS[currentApp].system;
+  var msgs = chatHistory.slice(-8);
+  var qs = '?question='+encodeURIComponent(question)+'&system='+encodeURIComponent(sys)+'&history='+encodeURIComponent(JSON.stringify(msgs.slice(0,-1)));
+  fetch(API+qs)
+  .then(function(r){return r.json();})
+  .then(function(data){
+    typing.remove();
+    var text = data.answer||(data.content&&data.content[0]&&data.content[0].text)||'';
+    if (text) { renderAIResponse(text); chatHistory.push({role:'assistant',content:text}); }
+    else addBubble('bot','לא הצלחתי להבין את השאלה 🙏 נסו לנסח אחרת או להוסיף פרטים.');
+  })
+  .catch(function(){ typing.remove(); addBubble('bot','לא הצלחתי להבין את השאלה 🙏 נסו לנסח אחרת או להוסיף פרטים.'); });
+}
+
+// ════════ מצלמה ════════
+function handleCamImage(input) {
+  if (!input.files||!input.files[0]) return;
+  addBubble('user','📷 שולח תמונה לזיהוי...');
+  var t = showTyping();
+  var reader = new FileReader();
+  reader.onload = function(){
+    var sys = 'זהה את המכשיר בתמונה (רובוט שואב / שואב אבק / שוטף רצפה). ענה: מותג, דגם, סוג. בעברית קצר.';
+    fetch(API+'?question='+encodeURIComponent('זהה מכשיר')+'&system='+encodeURIComponent(sys))
+    .then(function(r){return r.json();})
+    .then(function(data){
+      t.remove();
+      var text = data.answer||(data.content&&data.content[0]&&data.content[0].text)||'לא הצלחתי לזהות — תארו בטקסט.';
+      addBubble('bot', escH(text));
+    })
+    .catch(function(){ t.remove(); addBubble('bot','לא הצלחתי לזהות — תארו בטקסט.'); });
+  };
+  reader.readAsDataURL(input.files[0]);
+}
+
+// ════════ מיקרופון ════════
+var recognition=null, isListening=false;
+function toggleMic() {
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if (!SR){alert('הדפדפן לא תומך. נסו Chrome.');return;}
+  if (isListening){stopMic();return;}
+  recognition=new SR();recognition.lang='he-IL';recognition.continuous=false;recognition.interimResults=false;
+  recognition.onstart=function(){isListening=true;var b=document.getElementById('mic-btn');b.classList.add('listening');b.textContent='🔴';};
+  recognition.onresult=function(e){var ta=document.getElementById('chat-input');ta.value=e.results[0][0].transcript;autoResize(ta);};
+  recognition.onend=stopMic;recognition.onerror=function(){stopMic();};
+  recognition.start();
+}
+function stopMic(){
+  isListening=false;var b=document.getElementById('mic-btn');
+  if(b){b.classList.remove('listening');b.textContent='🎤';}
+  if(recognition){try{recognition.stop();}catch(e){}recognition=null;}
+}
+
+// אתחול
+window.onload = function() { initAuth(); };
+</script>
+</div><!-- /app-content -->
+<script>
+// ══════════════════════════════════════════
+//  אימות Google — GimlaTech
+// ══════════════════════════════════════════
+
+// ← הדביקי כאן את ה-Client ID שלך מ-Google Cloud Console
+var GOOGLE_CLIENT_ID = '882763453521-junm9rvoi5et71i4u03igoo211cfg225.apps.googleusercontent.com';
+
+// כתובת ה-Apps Script (כבר מוגדרת למעלה כ-API)
+var AUTH_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz3wVJzFDVm8KmUlDSTd-eiB-1f6hXlYwelVcBPcuWXZ26RmGvtQ_xbkbsz-fTZFvBc/exec';
+
+var currentUserEmail = '';
+var currentUserName  = '';
+
+// ── בדיקה ראשונית: האם יש session שמור? ──
+function initAuth() {
+  var saved = sessionStorage.getItem('gimlatech_user');
+  if (saved) {
+    try {
+      var u = JSON.parse(saved);
+      currentUserEmail = u.email;
+      currentUserName  = u.name;
+      unlockApp();
+      return;
+    } catch(e) { sessionStorage.removeItem('gimlatech_user'); }
+  }
+  // אין session — הצג מסך נעילה (כבר מוצג כברירת מחדל)
+  // טען Google GSI
+  if (window.google && window.google.accounts) {
+    setupGSI();
+  } else {
+    var t = setInterval(function(){
+      if (window.google && window.google.accounts) { clearInterval(t); setupGSI(); }
+    }, 200);
+  }
+}
+
+function setupGSI() {
+  try {
+    google.accounts.id.initialize({
+      client_id: GOOGLE_CLIENT_ID,
+      callback: handleCredentialResponse,
+      auto_select: false,
+      ux_mode: 'popup'
+    });
+  } catch(e) { console.log('GSI init error:', e); }
+}
+
+// ── לחיצה על כפתור הכניסה ──
+function startSignIn() {
+  document.getElementById('signin-btn').disabled = true;
+  document.getElementById('lock-denied').style.display = 'none';
+
+  if (!window.google || !window.google.accounts) {
+    alert('שגיאה: טיפול Google לא נטען. בדקו חיבור אינטרנט ורעננו.');
+    document.getElementById('signin-btn').disabled = false;
+    return;
+  }
+
+  document.getElementById('lock-checking').style.display = 'block';
+  document.getElementById('lock-checking').textContent = '⏳ פותח חלון כניסה...';
+
+  google.accounts.id.prompt(function(notification) {
+    if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+      // Fallback: פתח popup ידנית
+      google.accounts.oauth2.initTokenClient({
+        client_id: GOOGLE_CLIENT_ID,
+        scope: 'email profile',
+        callback: function(tokenResponse) {
+          if (tokenResponse.access_token) {
+            fetchUserInfo(tokenResponse.access_token);
+          }
+        }
+      }).requestAccessToken();
+    }
+  });
+}
+
+// ── קבלת token מ-GSI (one-tap / popup) ──
+function handleCredentialResponse(response) {
+  document.getElementById('lock-checking').style.display = 'block';
+  document.getElementById('lock-checking').textContent = '⏳ בודק הרשאות...';
+
+  // פענוח JWT (ללא אימות חתימה — הבדיקה האמיתית ב-Apps Script)
+  try {
+    var parts = response.credential.split('.');
+    var payload = JSON.parse(atob(parts[1].replace(/-/g,'+').replace(/_/g,'/')));
+    currentUserEmail = payload.email || '';
+    currentUserName  = payload.name  || payload.email || '';
+    checkAuth(currentUserEmail, currentUserName);
+  } catch(e) {
+    showDenied('שגיאה בקריאת פרטי המשתמש. נסו שוב.');
+  }
+}
+
+// ── שליפת פרטי משתמש דרך Access Token ──
+function fetchUserInfo(accessToken) {
+  fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
+    headers: { Authorization: 'Bearer ' + accessToken }
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(info) {
+    currentUserEmail = info.email || '';
+    currentUserName  = info.name  || info.email || '';
+    checkAuth(currentUserEmail, currentUserName);
+  })
+  .catch(function() { showDenied('לא ניתן לאמת. בדקו חיבור ונסו שוב.'); });
+}
+
+// ── בדיקת הרשאה מול Apps Script ──
+function checkAuth(email, name) {
+  document.getElementById('lock-checking').style.display = 'block';
+  document.getElementById('lock-checking').textContent = '⏳ בודק הרשאות עבור ' + email + '...';
+
+  fetch(AUTH_SCRIPT_URL + '?action=checkAuth&email=' + encodeURIComponent(email))
+  .then(function(r){ return r.json(); })
+  .then(function(data) {
+    if (data.authorized === true) {
+      sessionStorage.setItem('gimlatech_user', JSON.stringify({email:email, name:name}));
+      logUsage(email, name, 'login');
+      unlockApp();
+    } else {
+      showDenied(null);
+    }
+  })
+  .catch(function() {
+    // אם Apps Script לא זמין — אשר בינתיים (הורידי שורה זו אם רוצה קשיחות מלאה)
+    showDenied('שגיאת תקשורת עם השרת. נסו שוב.');
+  });
+}
+
+// ── פתיחת האפליקציה אחרי אימות ──
+function unlockApp() {
+  document.getElementById('user-name-display').textContent = currentUserName || currentUserEmail;
+  document.getElementById('app-content').style.display = 'block';
+  switchApp('gth', document.querySelectorAll('.app-tab')[0]);
+
+  var lock = document.getElementById('lock-screen');
+  lock.classList.add('fade-out');
+  setTimeout(function(){ lock.style.display = 'none'; }, 450);
+}
+
+// ── הצגת הודעת דחייה ──
+function showDenied(msg) {
+  document.getElementById('lock-checking').style.display = 'none';
+  document.getElementById('signin-btn').disabled = false;
+  var denied = document.getElementById('lock-denied');
+  if (msg) denied.innerHTML = '⚠️ ' + msg;
+  denied.style.display = 'block';
+}
+
+// ── התנתקות ──
+function signOut() {
+  sessionStorage.removeItem('gimlatech_user');
+  currentUserEmail = '';
+  currentUserName  = '';
+  document.getElementById('app-content').style.display = 'none';
+  document.getElementById('lock-screen').style.display  = 'flex';
+  document.getElementById('lock-screen').classList.remove('fade-out');
+  document.getElementById('lock-checking').style.display = 'none';
+  document.getElementById('lock-denied').style.display   = 'none';
+  document.getElementById('signin-btn').disabled = false;
+  if (window.google && window.google.accounts) {
+    google.accounts.id.disableAutoSelect();
+  }
+}
+
+// ── רישום שימוש ל-Sheets ──
+function logUsage(email, name, action) {
+  try {
+    fetch(AUTH_SCRIPT_URL + '?action=logUsage&email=' + encodeURIComponent(email)
+      + '&name=' + encodeURIComponent(name)
+      + '&event=' + encodeURIComponent(action));
+  } catch(e) {}
+}
+</script>
+</body>
+</html>
